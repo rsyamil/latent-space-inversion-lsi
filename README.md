@@ -40,7 +40,7 @@ The model decoder can be used to decode the sampled points around **z_m** to obt
 
 ![m_pert](/readme/test_m_pert_demo.png)
 
-The ensemble of relevant inversion solutions is fed to the operator **G** (i.e. **D=G(M)**) to validate if the solutions can sufficiently reproduce the observed **d**. In the figures below, gray points/lines represent the entire testing dataset and the orange lines represent the simulated **D** from the ensemble, where significant reduction in uncertainty is obtained.
+The ensemble of relevant inversion solutions is fed to the operator **G** (i.e. **D=G(M)**) to validate if the solutions can sufficiently reproduce the observed **d**. In the figure below, gray points/lines represent the entire testing dataset and the orange points/lines represent the simulated **D** from the ensemble, where a significant reduction in uncertainty is obtained.
 
 ![d_pert](/readme/test_d_pert_demo.png)
 
