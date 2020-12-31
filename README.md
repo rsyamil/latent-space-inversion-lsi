@@ -10,10 +10,33 @@ The dataset used in this demo repository is the digit-MNIST images, **X**, with 
 
 ![ForwardModel](/readme/forwardmodel.png)
 
-In LSI, we are interested in learning the inverse mapping **M=G'(D)** which is not trivial if the **M** is non-Gaussian (which is the case with the digit-MNIST images) and G is nonlinear (in this demo we assume a linear operator). Such complex mapping (also known as history-matching) may result in solutions that are non-unique with features that may not be consistent. LSI is an extension of [my early work](https://link.springer.com/article/10.1007/s10596-020-09971-4) that has more information on the nature of this problem.
+We are interested in learning the inverse mapping **M=G'(D)** which is not trivial if the **M** is non-Gaussian (which is the case with the digit-MNIST images) and G is nonlinear (in this demo we assume a linear operator). Such complex mapping (also known as history-matching) may result in solutions that are non-unique with features that may not be consistent. LSI seeks to address those challenges and is an extension of [my early work](https://link.springer.com/article/10.1007/s10596-020-09971-4) that has more descriptions of the nature of this engineering problem.
 
 ## Implementation
 
+LSI performs simultaneous dimensionality reduction (by extracting salient spatial features from **M** and temporal features from **D**) and inverse mapping (by mapping the salient features in **D** to **M**, i.e. latent spaces). The architecture is composed of dual autoencoders connected with a regression model as shown below and is trained jointly. See [this Jupyter Notebook](https://github.com/rsyamil/latent-space-inversion-lsi/blob/main/qc-demo.ipynb) to train/load/QC the architecture.
 
 ![Arch](/readme/Archcombined.jpg)
+
+The pseudocode is described here:
+
+![Pseud](/readme/pseudocode.png)
+
+## Demo of LSI Workflow
+
+Once the LSI architecture is trained, 
+
+
+![ref_all](/readme/test_sigs_ref_recons_demo.png)
+
+![zds](/readme/test_zds_demo.png)
+
+![zms](/readme/test_zms_demo.png)
+
+
+
+![m_pert](/readme/test_m_pert_demo.png)
+
+![d_pert](/readme/test_d_pert_demo.png)
+
 
