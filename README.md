@@ -14,7 +14,7 @@ We are interested in learning the inverse mapping **M=G'(D)** which is not trivi
 
 ## Implementation
 
-LSI performs simultaneous dimensionality reduction (by extracting salient spatial features from **M** and temporal features from **D**) and inverse mapping (by mapping the salient features in **D** to **M**, i.e. latent spaces). The architecture is composed of dual autoencoders connected with a regression model as shown below and is trained jointly. See [this Jupyter Notebook](https://github.com/rsyamil/latent-space-inversion-lsi/blob/main/qc-demo.ipynb) to train/load/QC the architecture.
+LSI performs simultaneous dimensionality reduction (by extracting salient spatial features from **M** and temporal features from **D**) and inverse mapping (by mapping the salient features in **D** to **M**, i.e. latent spaces **z_d** and **z_m**). The architecture is composed of dual autoencoders connected with a regression model as shown below and is trained jointly. See [this Jupyter Notebook](https://github.com/rsyamil/latent-space-inversion-lsi/blob/main/qc-demo.ipynb) to train/load/QC the architecture.
 
 ![Arch](/readme/Archcombined.jpg)
 
@@ -24,15 +24,17 @@ The pseudocode is described here:
 
 ## Demo of LSI Workflow
 
-Once the LSI architecture is trained, 
-
+The trained LSI architecture is used to provide prediction of **m** for any given (and unseen) **d**. In this demonstration, assume the following reference case of digit zero. The first left plot in the figure below represents the observed **d** and its reconstruction. The second plot shows the same, in scatter form. The third plot is the reference **m** and the fourth plot shows the prediction of LSI. 
 
 ![ref_all](/readme/test_sigs_ref_recons_demo.png)
 
+Since the latent spaces **z_d** and **z_m** correspond to meaningful spatial and temporal variations in **D** and **M** respectively, they can be explored to obtain an ensemble of relevant inversion solutions. For example, the histograms below show **z_d** and the red line represents the observed **d**. We can sample points around the observed **d**, shown as the black unfilled bars denoted as "Pert".
+
 ![zds](/readme/test_zds_demo.png)
 
-![zms](/readme/test_zms_demo.png)
+Similarly, the histograms below show **z_m** and the red line represents the reference **m**. The sampled points in the data latent space can be inversely mapped to the model latent space, shown as the black unfilled bars denoted as "Pert".
 
+![zms](/readme/test_zms_demo.png)
 
 
 ![m_pert](/readme/test_m_pert_demo.png)
