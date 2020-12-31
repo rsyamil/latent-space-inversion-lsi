@@ -608,15 +608,15 @@ def inspect_LSI(LSI, M_test, D_test, M_test_label):
         #predicted model (i.e. inversion)
         ax = f.add_subplot(1, 4, 3)
         plt.imshow(M_test_hat_reg[1][case, :, :, 0], cmap='viridis', vmin=0, vmax=1)
-        plt.title('Recons ('+str(M_test_label[case])+')')
+        plt.title('Inversion ('+str(M_test_label[case])+')')
         plt.grid(False), plt.xticks([]), plt.yticks([])
         
         #predicted model (i.e. inversion) colormap limit removed to show diffr
         ax = f.add_subplot(1, 4, 4)
         plt.imshow(M_test_hat_reg[1][case, :, :, 0], cmap='viridis')
-        plt.title('Recons_f ('+str(M_test_label[case])+')')
+        plt.title('Inversion ('+str(M_test_label[case])+')')
         plt.grid(False), plt.xticks([]), plt.yticks([])
-        f.savefig('readme/test_sigs_ref_recons_'+str(case)+'.png')
+        f.savefig('readme/test_sigs_ref_invs_'+str(case)+'.png')
 
 
 

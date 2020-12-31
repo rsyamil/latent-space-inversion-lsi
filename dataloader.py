@@ -31,6 +31,10 @@ class DataLoader:
         x_train = np.expand_dims(x_train/255.0, axis=-1)
         x_test = np.expand_dims(x_test/255.0, axis=-1)
         
+        #discretize the images
+        x_train = np.where(x_train<0.5, 0, 1)
+        x_test = np.where(x_test<0.5, 0, 1)
+        
         #create (simulate) a synthetic "time series" data vector (y) for each of the input (x) such that y=Gx and G is linear
         #G represents some abstract function (i.e. fluid flow simulator)
         G = np.load('G.npy')
