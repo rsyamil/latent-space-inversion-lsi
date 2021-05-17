@@ -20,7 +20,7 @@ The pseudocode is described here:
 
 ## Demo of LSI Workflow
 
-The trained LSI architecture is used to provide prediction of **m** for any given (and unseen) **d**. In this demonstration, assume the following reference case of digit zero. The first left plot in the figure below represents the observed **d** and its reconstruction. The second plot shows the same, in scatter form. The third plot is the reference **m** and the fourth plot shows the prediction of LSI. 
+The trained LSI architecture is used to provide predictions of **m** for any given (and unseen) **d**. In this demonstration, assume the following reference case of digit zero. The first left plot in the figure below represents the observed **d** and its reconstruction. The second plot shows the same, in scatter form. The third plot is the reference **m** and the fourth plot shows the prediction of LSI. 
 
 ![ref_all](/readme/test_sigs_ref_recons_demo.png)
 
