@@ -12,9 +12,10 @@ tf.compat.v1.logging.set_verbosity(tf.compat.v1.logging.ERROR)
 
 class DataLoader:
 
-	def __init__(self, simulator, verbose=False):
+	def __init__(self, simulator, scenario = 0, verbose=False):
 
 		self.verbose = verbose
+		self.scenario = scenario
 
 		self.x_train = []
 		self.x_test = []
@@ -24,20 +25,33 @@ class DataLoader:
 		self.y_reg_test = []
 
 		self.sim = simulator
-		self.maxs = []
-
+		self.y_min = []
+		self.y_max = []
+		
 	def normalize(self, x):
 		x_min = np.min(x)
 		x_max = np.max(x)
 		return (x - x_min)/(x_max - x_min)
-
+		
+	def normalize_data(self, y):
+		self.y_min = np.min(y, axis=0)
+		self.y_max = np.max(y, axis=0)
+		return (y - self.y_min)/(self.y_max - self.y_min)
+		
 	def load_data(self):
 		'''create (simulate) a synthetic "time series" data vector (y) for each of the input (x) such that y=Gx and G is linear
 		self.sim  represents some abstract function (i.e. fluid flow simulator)
-		self.y_reg is presimulated
 		'''
 		x = np.load("data\M.npy")
-		y_reg = np.load("data\D.npy")
+		
+		#create label, for every 500 models for 5 scenarios
+		y = np.zeros([x.shape[0], ], dtype=np.int32)
+		for i in range(5):
+			y[i*500:i*500+500] = i
+		
+		#filter by scenario
+		x = x[y == self.scenario]
+		x = self.normalize(x)
 		
 		#reshape the models
 		x_r = np.zeros([x.shape[0], 100, 100, 1])
@@ -45,15 +59,13 @@ class DataLoader:
 			x_r[i,:,:,:] = np.reshape(x[i,:], [1, 100, 100, 1])
 		x = x_r
 		
-		self.maxs = np.max(y_reg, axis=0)
-		y_reg = y_reg/self.maxs
+		#run forward simulation
+		y_reg = self.simulator(x)
 		
-		#create label, for every 500 models for 5 scenarios
-		y = np.zeros([x.shape[0], ], dtype=np.int32)
-		for i in range(5):
-			y[i*500:i*500+500] = i
+		#normalize production responses
+		y_reg = self.normalize_data(y_reg)
 		
-		#randomly sample from five scenarios
+		#randomly sample
 		np.random.seed(999)
 		indexes = np.random.permutation(np.arange(0, x.shape[0], dtype=np.int32))
 		partition = int(x.shape[0]*0.8)
@@ -62,29 +74,25 @@ class DataLoader:
 
 		self.x_train = x[train_idx]
 		self.x_test = x[test_idx]
-		self.y_train = y[train_idx]
-		self.y_test = y[test_idx]
-		self.y_reg_train = y_reg[train_idx]
-		self.y_reg_test = y_reg[test_idx]
+
+		self.y_reg_train = np.squeeze(y_reg[train_idx])
+		self.y_reg_test = np.squeeze(y_reg[test_idx])
 
 		if self.verbose: 
-			print("Loaded training data x {:s} and y {:s} and y_labels {:s}".format(str(self.x_train.shape), str(self.y_reg_train.shape), str(self.y_train.shape)))
-			print("Loaded testing data x {:s} and y {:s} and y_labels {:s}".format(str(self.x_test.shape), str(self.y_reg_test.shape), str(self.y_test.shape)))
+			print("Loaded training data x {:s} and y {:s}".format(str(self.x_train.shape), str(self.y_reg_train.shape)))
+			print("Loaded testing data x {:s} and y {:s}".format(str(self.x_test.shape), str(self.y_reg_test.shape)))
 		    
-		return self.x_train, self.x_test, self.y_train, self.y_test, self.y_reg_train, self.y_reg_test
+		return self.x_train, self.x_test, self.y_reg_train, self.y_reg_test
 
 	def simulator(self, ms):
 		'''simulate observations for a given set of models
 		'''
-		ms = np.where(ms<0.5, 0, 1)
-		
 		d_dim = self.sim.shape[-1]
 		ds = np.zeros([ms.shape[0], d_dim])
 
 		for i in range(ms.shape[0]):
 			print("Running simulation ", i)
 			ds[i:i+1, :] = np.reshape((ms[i:i+1, :, :, 0]), [1, ms.shape[1]*ms.shape[2]])@self.sim 
-			ds[i:i+1, :] = ds[i:i+1, :] /np.squeeze(self.maxs)
 
 		return np.expand_dims(ds, axis=-1)
              

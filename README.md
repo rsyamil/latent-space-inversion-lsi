@@ -7,12 +7,10 @@ latent-space-inversion
 │
 └─── mnist
 │   
-└─── 2d-gaussian
-│   
 └─── 2d-fluvial
 ```
 
-Demos based on the MNIST dataset, a 2D gaussian field dataset and a 2D fluvial field dataset (see folder structure) are archived in this repository.
+Demos based on the MNIST dataset and a 2D fluvial field dataset (see folder structure) are archived in this repository.
 
 The AGUFM2020 [video](https://vimeo.com/495980342) presentation can be viewed below:
 

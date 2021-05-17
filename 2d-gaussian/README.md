@@ -1,2 +1,0 @@
-# latent-space-inversion
-
