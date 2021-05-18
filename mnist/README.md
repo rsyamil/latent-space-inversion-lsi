@@ -10,7 +10,7 @@ We are interested in learning the inverse mapping **M=G'(D)** which is not trivi
 
 ## Implementation
 
-LSI performs simultaneous dimensionality reduction (by extracting salient spatial features from **M** and temporal features from **D**) and inverse mapping (by mapping the salient features in **D** to **M**, i.e. latent spaces **z_d** and **z_m**). The architecture is composed of dual autoencoders connected with a regression model as shown below and is trained jointly. See [this Jupyter Notebook](https://github.com/rsyamil/latent-space-inversion-lsi/blob/main/qc-demo.ipynb) to train/load/QC the architecture.
+LSI performs simultaneous dimensionality reduction (by extracting salient spatial features from **M** and temporal features from **D**) and inverse mapping (by mapping the salient features in **D** to **M**, i.e. latent spaces **z_d** and **z_m**). The architecture is composed of dual autoencoders connected with a regression model as shown below and is trained jointly. See [this Jupyter Notebook](https://github.com/rsyamil/latent-space-inversion-lsi/blob/main/mnist/qc-demo.ipynb) to train/load/QC the architecture.
 
 ![Arch](/mnist/readme/Archcombined.jpg)
 
@@ -20,7 +20,7 @@ The pseudocode is described here:
 
 ## Demo of LSI Workflow
 
-The trained LSI architecture is used to provide predictions of **m** for any given (and unseen) **d**. In this demonstration, assume the following reference case of digit zero. The first left plot in the figure below represents the observed **d** and its reconstruction. The second plot shows the same, in scatter form. The third plot is the reference **m** and the fourth plot shows the prediction of LSI. 
+The trained LSI architecture is used to provide predictions of **m** for any given (and unseen) **d**. In [this demonstration](https://github.com/rsyamil/latent-space-inversion-lsi/blob/main/mnist/lsi-demo.ipynb), assume the following reference case of digit zero. The first left plot in the figure below represents the observed **d** and its reconstruction. The second plot shows the same, in scatter form. The third plot is the reference **m** and the fourth plot shows the prediction of LSI. 
 
 ![ref_all](/mnist/readme/test_sigs_ref_recons_demo.png)
 
