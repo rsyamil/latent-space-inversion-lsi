@@ -38,6 +38,9 @@ class DataLoader:
 		self.y_max = np.max(y, axis=0)
 		return (y - self.y_min)/(self.y_max - self.y_min)
 		
+	def normalize_data_(self, y):
+		return (y - self.y_min)/(self.y_max - self.y_min)
+		
 	def load_data(self):
 		'''create (simulate) a synthetic "time series" data vector (y) for each of the input (x) such that y=Gx and G is linear
 		self.sim  represents some abstract function (i.e. fluid flow simulator)
