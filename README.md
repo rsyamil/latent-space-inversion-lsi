@@ -18,4 +18,8 @@ The AGUFM2020 [video](https://vimeo.com/495980342) presentation can be viewed be
 
 ## Workflow
 
-LSI performs simultaneous dimensionality reduction (by extracting salient spatial features from **M** and temporal features from **D**) and inverse mapping (by mapping the salient features in **D** to **M**, i.e. latent spaces **z_d** and **z_m**). The architecture is composed of dual autoencoders connected with a regression model as shown below and is trained jointly.
+LSI performs simultaneous dimensionality reduction (by extracting salient spatial features from **M** and temporal features from **D**) and inverse mapping (by mapping the salient features in **D** to **M**, i.e. latent spaces **z_d** and **z_m**). The architecture is composed of dual autoencoders connected with a regression model as shown below and is trained jointly. Since the latent spaces **z_d** and **z_m** correspond to meaningful spatial and temporal variations in **D** and **M** respectively, they can be explored to obtain an ensemble of relevant inversion solutions. The sampled points in the data latent space can be inversely mapped to the model latent space and the model decoder can be used to decode the sampled points around **z_m** to obtain the ensemble of relevant inversion solutions.
+
+![Workflow](/readme/wflow.jpg)
+
+In practical applications, observed **d** can be noisy and LSI helps us to quickly obtain the ensemble of relevant inversion solutions that can be accepted within the noise level, as well as understand the variations of spatial features within the ensemble to improve the predictive power of the inversion solutions.
